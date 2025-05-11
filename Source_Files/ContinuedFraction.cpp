@@ -23,10 +23,10 @@ ContinuedFraction::ContinuedFraction(const ContinuedFraction& other)
     denominator = other.denominator;
 }
 
-// = operator overlord
+// equal operator overlord
 ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 {
-
+    
 }
 
 
