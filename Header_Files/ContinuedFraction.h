@@ -33,7 +33,7 @@ public:
     //    Simplifying : After storing the values, it calls simplify() to reduce the fraction to its simplest form by dividing both the 
     //    numerator and denominator by their greatest common divisor(gcd).
     //    Generating the Continued Fraction : It calls compute() to generate the continued fraction representation of the given fraction.
-    //    So, the purpose of this method is to take a rational number, ensure it�s valid(non - zero denominator), simplify it, and then 
+    //    So, the purpose of this method is to take a rational number, ensure it's valid(non - zero denominator), simplify it, and then 
     //    compute its continued fraction representation.
     void fromFraction(int num, int denom);
 
