@@ -24,7 +24,7 @@
             "name": "Run Homework Project",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Driver_Files/main",
+            "program": "${workspaceFolder}/Driver_Files/main.cpp",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/Driver_Files",

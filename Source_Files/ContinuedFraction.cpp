@@ -62,3 +62,27 @@ vector<int> ContinuedFraction::getTerms() const
 {
     return this->terms;
 }
+
+//Operator overload implementations
+    ContinuedFraction ContinuedFraction::operator+(const ContinuedFraction& other) const
+    {
+        return ContinuedFraction(1, 1);
+    }
+
+    ContinuedFraction ContinuedFraction::operator-(const ContinuedFraction& other) const
+    {
+        return ContinuedFraction(1, 1);
+    }
+
+    ContinuedFraction ContinuedFraction::operator*(const ContinuedFraction& other) const
+    {
+        int newNum = this->numerator*other.numerator;
+        int newDenom = this->denominator*other.denominator;
+        return ContinuedFraction(newNum, newDenom);
+    }
+    ContinuedFraction ContinuedFraction::operator/(const ContinuedFraction& other) const
+    {
+        int newNum = this->numerator*other.denominator;
+        int newDenom = this->denominator*other.numerator;
+        return ContinuedFraction(newNum, newDenom);
+    }
