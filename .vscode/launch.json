@@ -8,6 +8,8 @@
             "args": [
                 "-std=c++17",
                 "main.cpp",
+                "../Source_Files/ContinuedFraction.cpp",
+                "-I../Header_Files",
                 "-o",
                 "main"
             ],
@@ -19,17 +21,17 @@
     ],
     "configurations": [
         {
-            "name": "C/C++: clang++ build and debug active file",
+            "name": "Run Homework Project",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/Driver_Files/main",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}/Driver_Files",
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
-            "preLaunchTask": "C/C++: clang++ build active file"
+            "preLaunchTask": "build"
         }
     ]
 }

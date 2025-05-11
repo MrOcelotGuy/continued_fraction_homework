@@ -2,29 +2,62 @@
 #include "ContinuedFraction.h"
 using namespace std;
 
+//Default Constructor
 ContinuedFraction::ContinuedFraction()
 {
     numerator = 1;
     denominator = 1;
 }
 
+//Constructor with values
 ContinuedFraction::ContinuedFraction(int num, int denom)
 {
     this->numerator = num;
     this->denominator = denom;
 }
 
+//Copy constructor
 ContinuedFraction::ContinuedFraction(const ContinuedFraction& other)
 {
     numerator = other.numerator;
     denominator = other.denominator;
 }
 
+// = operator overlord
 ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 {
 
 }
 
+
+
+//Implementation for toFraction method
+//I copy pasted the description
+
+//Purpose: This method converts the continued fraction(which is represented by the terms vector) back into a simple fraction(numerator and denominator)
+//Step - by - step :
+//Edge case check: It first checks if the terms vector is empty.If it is, it returns a default fraction 0 / 1 (representing 0).
+//Reversing the continued fraction :
+//The continued fraction is stored as a list of "partial quotients" in the terms vector.
+//The algorithm starts with the last term in the continued fraction(this is typically the first term in the fraction expansion) 
+//and works backwards to reconstruct the rational number.
+
+//How :
+//    It initializes num = 1 and denom = terms[n - 1](the last term).
+//    Then, it iterates over the remaining terms(starting from the second - to - last) and 
+//    reconstructs the fraction by repeatedly swapping num and denom and updating denom as denom + terms[i] * num.
+//    Swapping : After the loop, it swaps num and denom one more time to get the final fraction.
+//    Simplification : It calculates the gcd of the numerator(num) and denominator(denom), and divides both by this gcd to reduce the fraction 
+//    to its simplest form.
+//    Return : Finally, the method returns the fraction as a std::pair<int, int>.This pair contains the simplified numerator and denominator.
+pair<int, int> ContinuedFraction::toFraction() const
+{
+    return {1, 1};
+}
+
+
+
+//Getter method to get vector called terms
 vector<int> ContinuedFraction::getTerms() const
 {
     return this->terms;

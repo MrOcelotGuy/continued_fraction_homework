@@ -59,5 +59,13 @@
   "files.associations": {
     "vector": "cpp",
     "new": "cpp"
-  }
+  },
+  "makefile.makefilePath": "",
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "/Users/diegomeneses/Downloads/Homework",
+      "binaryPath": "/Users/diegomeneses/Downloads/Homework/main",
+      "binaryArgs": []
+    }
+  ]
 }
