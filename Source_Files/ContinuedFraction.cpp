@@ -2,6 +2,9 @@
 #include "ContinuedFraction.h"
 using namespace std;
 
+// This is the file to implement the class described in the header file ContinuedFraction.h
+
+
 //Default Constructor
 ContinuedFraction::ContinuedFraction()
 {
@@ -93,37 +96,38 @@ vector<int> ContinuedFraction::getTerms() const
 }
 
 //Operator overload implementations
-    ContinuedFraction ContinuedFraction::operator+(const ContinuedFraction& other) const
-    {
-        return ContinuedFraction(1, 1);
-    }
+ContinuedFraction ContinuedFraction::operator+(const ContinuedFraction& other) const
+{
+    return ContinuedFraction(1, 1);
+}
 
-    ContinuedFraction ContinuedFraction::operator-(const ContinuedFraction& other) const
-    {
-        return ContinuedFraction(1, 1);
-    }
+ContinuedFraction ContinuedFraction::operator-(const ContinuedFraction& other) const
+{
+    return ContinuedFraction(1, 1);
+}
 
-    ContinuedFraction ContinuedFraction::operator*(const ContinuedFraction& other) const
-    {
-        int newNum = this->numerator*other.numerator;
-        int newDenom = this->denominator*other.denominator;
-        return ContinuedFraction(newNum, newDenom);
-    }
-    ContinuedFraction ContinuedFraction::operator/(const ContinuedFraction& other) const
-    {
-        int newNum = this->numerator*other.denominator;
-        int newDenom = this->denominator*other.numerator;
-        return ContinuedFraction(newNum, newDenom);
-    }
+ContinuedFraction ContinuedFraction::operator*(const ContinuedFraction& other) const
+{
+    int newNum = this->numerator*other.numerator;
+    int newDenom = this->denominator*other.denominator;
+    return ContinuedFraction(newNum, newDenom);
+}
+ContinuedFraction ContinuedFraction::operator/(const ContinuedFraction& other) const
+{
+    int newNum = this->numerator*other.denominator;
+    int newDenom = this->denominator*other.numerator;
+    return ContinuedFraction(newNum, newDenom);
+}
 
 
-    // Stream I/O overloads
-    std::ostream& operator<<(std::ostream& os, const ContinuedFraction& cf)
-    {
-        return os << cf;
-    }
+// Stream I/O overloads
+std::ostream& operator<<(std::ostream& os, const ContinuedFraction& cf)
+{
+    os << cf.numerator << "/" << cf.denominator;
+    return os;
+}
 
-    std::istream& operator>>(std::istream& is, ContinuedFraction& cf)
-    {
-        return is >> cf;
-    }
+std::istream& operator>>(std::istream& is, ContinuedFraction& cf)
+{
+    return is >> cf;
+}
