@@ -32,7 +32,32 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
     return *this;
 }
 
+//Implementation for fromFraction method
+//I copy pasted the description
 
+// Conversion methods
+//Purpose: This method takes a rational number(numerator and denominator) and converts it into a continued fraction representation.
+//Step - by - step :
+//    Storing the fraction : The method assigns the given num(numerator) and denom(denominator) to the corresponding member variables 
+//    of the class (numerator and denominator).
+//    Validation : It checks if the denominator is zero, and if so, throws an exception(std::invalid_argument) because a fraction with a 
+//    zero denominator is invalid.
+//    Simplifying : After storing the values, it calls simplify() to reduce the fraction to its simplest form by dividing both the 
+//    numerator and denominator by their greatest common divisor(gcd).
+//    Generating the Continued Fraction : It calls compute() to generate the continued fraction representation of the given fraction.
+//    So, the purpose of this method is to take a rational number, ensure it's valid(non - zero denominator), simplify it, and then 
+//    compute its continued fraction representation.
+void ContinuedFraction::fromFraction(int num, int denom)
+{
+    if(denom == 0)
+    {
+        throw std::invalid_argument("Do not set the denominator to 0");
+    }
+
+    numerator = num;
+    denominator = denom;
+
+}
 
 //Implementation for toFraction method
 //I copy pasted the description
@@ -55,6 +80,7 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 //    Return : Finally, the method returns the fraction as a std::pair<int, int>.This pair contains the simplified numerator and denominator.
 pair<int, int> ContinuedFraction::toFraction() const
 {
+
     return {1, 1};
 }
 
