@@ -9,29 +9,15 @@
                 "-std=c++17",
                 "main.cpp",
                 "../Source_Files/ContinuedFraction.cpp",
+                
                 "-I../Header_Files",
                 "-o",
-                "main"
+                "main.cpp"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
-        }
-    ],
-    "configurations": [
-        {
-            "name": "Run Homework Project",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/Driver_Files/main.cpp",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/Driver_Files",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
-            "preLaunchTask": "build"
         }
     ]
 }

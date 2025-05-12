@@ -3,7 +3,8 @@ CXX = clang++
 CXXFLAGS = -std=c++17 -IHeader_Files
 
 # Source files
-SOURCES = Driver_Files/main.cpp Source_Files/ContinuedFraction.cpp
+SOURCES = Driver_Files/main.cpp Source_Files/ContinuedFraction.cpp 
+
 
 # Output file
 OUTPUT = main

@@ -26,7 +26,10 @@ ContinuedFraction::ContinuedFraction(const ContinuedFraction& other)
 // equal operator overlord
 ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 {
-    
+    numerator = other.numerator;
+    denominator = other.denominator;
+
+    return *this;
 }
 
 
@@ -85,4 +88,16 @@ vector<int> ContinuedFraction::getTerms() const
         int newNum = this->numerator*other.denominator;
         int newDenom = this->denominator*other.numerator;
         return ContinuedFraction(newNum, newDenom);
+    }
+
+
+    // Stream I/O overloads
+    std::ostream& operator<<(std::ostream& os, const ContinuedFraction& cf)
+    {
+        return os << cf;
+    }
+
+    std::istream& operator>>(std::istream& is, ContinuedFraction& cf)
+    {
+        return is >> cf;
     }

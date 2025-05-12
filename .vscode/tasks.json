@@ -31,6 +31,7 @@
                 "-fansi-escape-codes",
                 "-g",
                 "${file}",
+                "../Source_Files/ContinuedFraction.cpp",
                 "-I../Header_Files",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
