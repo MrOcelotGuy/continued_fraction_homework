@@ -8,6 +8,7 @@ using namespace std;
 //Default Constructor
 ContinuedFraction::ContinuedFraction()
 {
+    cout << "Entering default value of 1/1";
     numerator = 1;
     denominator = 1;
 }
@@ -35,6 +36,37 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
     return *this;
 }
 
+
+//The MAIN attraction:
+//The simplify and the compute methods
+// These 2 methods are doing most of the heavy lifting
+
+//In the simplify method, I must use the greatest common denominator of the numerator
+//and denominator in order to reduce the fraction to its minimal form
+
+void ContinuedFraction::simplify()
+{
+
+    int temp = denominator;
+
+    while(!((numerator%temp == 0) && (denominator%temp ==0)))
+    {
+        temp--;
+    }
+    numerator /= temp;
+    denominator /= temp;
+}
+
+// In the compute method, I must compute the continued fraction to enter
+// into the vector terms 
+
+void ContinuedFraction::compute()
+{
+    
+}
+
+
+
 //Implementation for fromFraction method
 //I copy pasted the description
 
@@ -60,6 +92,9 @@ void ContinuedFraction::fromFraction(int num, int denom)
     numerator = num;
     denominator = denom;
 
+    simplify();   //this should reduce the fraction to its simplest form when put into the class variables
+
+    compute(); //this should compute the class variables in order to convert it into a class
 }
 
 //Implementation for toFraction method
