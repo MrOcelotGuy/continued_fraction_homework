@@ -47,14 +47,32 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 void ContinuedFraction::simplify()
 {
 
-    int temp = denominator;
-
-    while(!((numerator%temp == 0) && (denominator%temp ==0)))
+    int temp;
+    if(numerator>denominator)
     {
-        temp--;
+        temp = denominator;
     }
-    numerator /= temp;
-    denominator /= temp;
+    else if (denominator>numerator)
+    {
+        temp = numerator;
+    }
+    else
+    {
+        temp = 0;
+        numerator = 1;
+        denominator = 1;
+    }
+    
+    if(!(temp == 0))
+    {
+        while(!((numerator%temp == 0) && (denominator%temp ==0)))
+        {
+            temp--;
+        }
+        numerator /= temp;
+        denominator /= temp;
+    }
+    
 }
 
 // In the compute method, I must compute the continued fraction to enter
@@ -62,7 +80,7 @@ void ContinuedFraction::simplify()
 
 void ContinuedFraction::compute()
 {
-    
+
 }
 
 
@@ -164,5 +182,9 @@ std::ostream& operator<<(std::ostream& os, const ContinuedFraction& cf)
 
 std::istream& operator>>(std::istream& is, ContinuedFraction& cf)
 {
-    return is >> cf;
+    cout << "Enter the numerator: ";
+    is >> cf.numerator;
+    cout << "Enter the denominator: ";
+    is >> cf.denominator;
+    return is;
 }
