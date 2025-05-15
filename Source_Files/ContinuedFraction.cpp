@@ -47,16 +47,19 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 void ContinuedFraction::simplify()
 {
 
-    int temp;
+    int temp;   //Temporary number that will hold the value of the smallest one of the two in order to subtract
     if(numerator>denominator)
     {
-        temp = denominator;
+        temp = denominator; 
     }
     else if (denominator>numerator)
     {
         temp = numerator;
     }
-    else
+    // The previous two if statements are to determine whether the denominator or numerator is smaller, the integer temp will take on the
+    // value of the smallest one
+
+    else // If neither of them is greater than the other, it means they are equal meaning the fraction is equal to 1.
     {
         temp = 0;
         numerator = 1;
@@ -80,7 +83,7 @@ void ContinuedFraction::simplify()
 
 void ContinuedFraction::compute()
 {
-
+    
 }
 
 
