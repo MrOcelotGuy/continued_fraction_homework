@@ -2,6 +2,7 @@
 #include "ContinuedFraction.h"
 
 
+//Unit test in order to test that it works
 bool runTests() {
     ContinuedFraction cf1(43, 13);
     std::vector<int> expectedValue {3,3,4};
@@ -38,18 +39,30 @@ bool runTests() {
         return false;
     }
 
+    ContinuedFraction cf6(-2, 5);
+    ContinuedFraction expectedValue6{-16, 15};
+    ContinuedFraction actualValue = cf6+cf5;
+    if (actualValue.getTerms() != expectedValue6.getTerms()) 
+    {
+        return false;
+    }
+
+
 
     return true;
 }
 
-//Did not change the driver file at the end to ensure it is like the original, but I did do temporary tests on this file.
+
 int main() {
 
-    // run tests
-    if (!runTests()) {
+    //Running the unit test, if it fails then it returns 1 and therefore exits the program
+    if (!runTests()) 
+    {
         std::cout << "Tests have failed" <<std::endl;
         return 1;
-    } else {
+    } 
+    else 
+    {
         std::cout << "Tests have passed" << std::endl;
     }
 
