@@ -8,6 +8,7 @@ using namespace std;
 //Default Constructor
 ContinuedFraction::ContinuedFraction()
 {
+    //Inputs 0/1 as a base case
     numerator = 0;
     denominator = 1;
 }
@@ -15,23 +16,19 @@ ContinuedFraction::ContinuedFraction()
 //Constructor with values
 ContinuedFraction::ContinuedFraction(int num, int denom)
 {
-    if(denom == 0)
-    {
-        throw invalid_argument("Denominator can't be 0");
-    }
-    // this->numerator = num;
-    // this->denominator = denom;
+    //Since the void method fromFraction already initializes the class variables and throws
+    //when the denominator is 0, only that function is needed to construct the object.
     fromFraction(num, denom);
 }
 
-//Copy constructor
+//Copy constructor, fairly self explanatory lets you copy from another object
 ContinuedFraction::ContinuedFraction(const ContinuedFraction& other)
 {
     numerator = other.numerator;
     denominator = other.denominator;
 }
 
-// equal operator overlord
+// equal operator overlord, fairly self-explanatory, lets you assign another object to the object.
 ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 {
     numerator = other.numerator;
@@ -42,21 +39,27 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 
 
 //The MAIN attraction:
-//The simplify and the compute methods
-// These 2 methods are doing most of the heavy lifting
+//The simplify, gcd, and compute methods 
+// These 3 methods are doing most of the heavy lifting
 
 //In the simplify method, I must use the greatest common denominator of the numerator
-//and denominator in order to reduce the fraction to its minimal form
+//and denominator in order to reduce the fraction to its minimal form. I used another
+//method in order to get the GCD in order to decluttter my code.
 
 void ContinuedFraction::simplify()
 { 
-    int g = gcd(abs(this->numerator), abs(this->denominator));
-    this->numerator /= g;
+    int g = gcd(abs(this->numerator), abs(this->denominator)); //g is short for gcd, it is equivalent to the GCD of the numerator and denominator
+
+    //Divides both numerator and denominator by their GCD in order to reduce the fraction
+    this->numerator /= g; 
     this->denominator /= g;
 }
 
-int ContinuedFraction::gcd(int a, int b) {
-    // int min;   //Temporary number that will hold the value of the smallest one of the two in order to subtract
+//I added a gcd method in order to make the body of simplify() look less ugly, 
+//and in order to be able to reuse it if need be
+int ContinuedFraction::gcd(int a, int b) 
+{
+    //Checks if either a or b is 0 in order to just return the value that isn't 0
     if(b == 0)
     {
         return a;
@@ -65,17 +68,16 @@ int ContinuedFraction::gcd(int a, int b) {
     {
         return b;
     }
-    int min = a<b ? a : b;
-    
-  
-    // The previous two if statements are to determine whether the denominator or numerator is smaller, the integer temp will take on the
-    // value of the smallest one
 
-    while((a%min != 0) || (b%min != 0)) //Calculate the GCD with the temporary number
+    int min = a<b ? a : b; //Take the smaller of either a or b 
+   
+    //With brute force (I wrote this prior to the in-class explanation and it doesn't lag for me) start from the smaller of the two numbers and subtract
+    //1 from the saved minimum value and try diving both a and b by it until it finds the GCD
+    while((a%min != 0) || (b%min != 0)) 
     {
         min--;
     }
-    return min;
+    return min; //After the while loop ends, the GCD ends up stored in min so that gets returned
 }
 
 // In the compute method, I must compute the continued fraction to enter
@@ -145,9 +147,10 @@ void ContinuedFraction::compute()
 //    compute its continued fraction representation.
 void ContinuedFraction::fromFraction(int num, int denom)
 {
+    //Throw in order to prevent people from dividing by 0
     if(denom == 0)
     {
-        throw std::invalid_argument("Do not set the denominator to 0");
+        throw std::invalid_argument("Don't divide by 0");
     }
 
     numerator = num;
@@ -181,29 +184,33 @@ pair<int, int> ContinuedFraction::toFraction() const
 {
     if(terms.empty())
     {
-        return {0,1};
+        return {0,1};  //returning the default value of 0/1 if there is nothing in terms
     }
-    pair<int, int> fraction = {1, terms.back()};
-
-    for(int i = terms.size()-2; i >= 0; i--)
-    { 
-        swap(fraction.first, fraction.second);
-        fraction.second = (fraction.second + (terms.at(i)*fraction.first));
-    }
-    swap(fraction.first, fraction.second);
     
-    return fraction;
+    //Starting the algorithm to turn it back as described in the comments
+    pair<int, int> fraction = {1, terms.back()};  //Declaring a pair of ints with 1 and the last term as described
+
+    for(int i = terms.size()-2; i >= 0; i--) //Beginning at the penultimate term as described iterating loop until the first term
+    { 
+        swap(fraction.first, fraction.second); //swaps the numerator with the denominator
+        fraction.second = (fraction.second + (terms.at(i)*fraction.first)); //makes the denominator equal to denominator + terms[i]*numerator as instructed
+    }
+    swap(fraction.first, fraction.second); //swaps numerator with denominator one last time as described
+    
+    return fraction; //Returns the now converted fraction as an integer pair
 }
 
 
 
-//Getter method to get vector called terms
+//Getter method to get the terms vector containing the Continued Fraction (CF)
 vector<int> ContinuedFraction::getTerms() const
 {
     return this->terms;
 }
 
-//Operator overload implementations
+//Operator overload implementations:
+
+//I used the formula (a/b)+(c/d) = ((a*d)+(c*b))/(b*d) to get addition, and swapped the + for a - for subtraction
 ContinuedFraction ContinuedFraction::operator+(const ContinuedFraction& other) const
 {
     return ContinuedFraction( ( (this->numerator * other.denominator) + (other.numerator * this->denominator)), (this->denominator*other.denominator));
@@ -214,25 +221,28 @@ ContinuedFraction ContinuedFraction::operator-(const ContinuedFraction& other) c
     return ContinuedFraction( ( (this->numerator * other.denominator) - (other.numerator * this->denominator)), (this->denominator*other.denominator));
 }
 
+//I simply multiplied numerators and denominators together
 ContinuedFraction ContinuedFraction::operator*(const ContinuedFraction& other) const
 {
-    int newNum = this->numerator*other.numerator;
-    int newDenom = this->denominator*other.denominator;
-    return ContinuedFraction(newNum, newDenom);
+    return ContinuedFraction(this->numerator*other.numerator, this->denominator*other.denominator);
 }
+
+//Divide by multiply by the reciprocal, check that the other one isn't 0 since no division by 0
 ContinuedFraction ContinuedFraction::operator/(const ContinuedFraction& other) const
 {
     if(other.numerator == 0)
     {
-        throw invalid_argument("Don't divide by 0");
+        throw invalid_argument("Don't divide by 0"); //throw statement to ensure you aren't dividing by 0
     }
-    int newNum = this->numerator*other.denominator;
-    int newDenom = this->denominator*other.numerator;
-    return ContinuedFraction(newNum, newDenom);
+    return ContinuedFraction(this->numerator*other.denominator, this->denominator*other.numerator);
 }
 
 
 // Stream I/O overloads
+
+//Based on the example given on the driver file as the instructions had little to say, it seems that the
+//output stream should output the continued fraction of the object, so I have formatted it in order to do
+//just that
 std::ostream& operator<<(std::ostream& os, const ContinuedFraction& cf)
 {
     cout << "[";
@@ -244,6 +254,8 @@ std::ostream& operator<<(std::ostream& os, const ContinuedFraction& cf)
     return os;
 }
 
+//I did not have much to go off of, so I searched online what should an input overload look like
+//and I came up with this solution of allowing you to input the numerator and denominator.
 std::istream& operator>>(std::istream& is, ContinuedFraction& cf)
 {
     cout << "Enter the numerator: ";
