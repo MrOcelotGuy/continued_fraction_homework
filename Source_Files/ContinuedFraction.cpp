@@ -71,8 +71,8 @@ int ContinuedFraction::gcd(int a, int b)
 
     int min = a<b ? a : b; //Take the smaller of either a or b 
    
-    //With brute force (I wrote this prior to the in-class explanation and it doesn't lag for me) start from the smaller of the two numbers and subtract
-    //1 from the saved minimum value and try diving both a and b by it until it finds the GCD
+    //With brute force (I wrote this prior to the in-class explanation and it doesn't lag for me) start from the smaller 
+    //of the two numbers and subtract 1 from the saved minimum value and try diving both a and b by it until it finds the GCD
     while((a%min != 0) || (b%min != 0)) 
     {
         min--;
@@ -86,11 +86,12 @@ int ContinuedFraction::gcd(int a, int b)
 void ContinuedFraction::compute()
 {
 
-    bool isNegative = (numerator < 0) != (denominator < 0); //checks if the fraction is negative
+    bool isNegative = (numerator*denominator) < 0; //checks if the fraction is negative by multiplying the two
+    
+    //Used the absolute value of the numerator, as using negative values broke it
     int a = abs(numerator);   //a is the initial numerator
     int b = abs(denominator); //b is the initial denominator
     
-    //the two above have to be with absolute value so that it doesn't break with negatives
 
     if(a%b == 0)
     {
@@ -116,7 +117,9 @@ void ContinuedFraction::compute()
 
         //Non-standard way of getting negative CF by simply negating each list member.
         //Usually only the first term can be negative, however the original algorithm doesn't work for
-        //negatives and negating each member still is equivalent.
+        //negatives and negating each member still is equivalent so what I did was simply change each value
+        //to its negative version 
+
 
         if(isNegative)
         {
@@ -150,7 +153,7 @@ void ContinuedFraction::fromFraction(int num, int denom)
     //Throw in order to prevent people from dividing by 0
     if(denom == 0)
     {
-        throw std::invalid_argument("Don't divide by 0");
+        throw std::invalid_argument("Can't divide by 0");
     }
 
     numerator = num;
@@ -232,7 +235,7 @@ ContinuedFraction ContinuedFraction::operator/(const ContinuedFraction& other) c
 {
     if(other.numerator == 0)
     {
-        throw invalid_argument("Don't divide by 0"); //throw statement to ensure you aren't dividing by 0
+        throw invalid_argument("Can't divide by 0"); //throw statement to ensure you aren't dividing by 0
     }
     return ContinuedFraction(this->numerator*other.denominator, this->denominator*other.numerator);
 }

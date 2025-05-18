@@ -15,9 +15,13 @@ private:
     void compute();
 
 public:
-    //GCD
-    static int gcd(int a, int b); //I added a gcd method in order to make the body of simplify() look less ugly, and in order to be able to reuse it if need be
 
+    //I added a gcd method in order to make the body of simplify() look less ugly, 
+    //and in order to be able to reuse it if need be, it is static
+
+    //GCD
+    
+    static int gcd(int a, int b); 
     // Constructors
     ContinuedFraction();
     ContinuedFraction(int num, int denom);
