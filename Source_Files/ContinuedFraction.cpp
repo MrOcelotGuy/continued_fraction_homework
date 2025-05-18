@@ -8,14 +8,17 @@ using namespace std;
 //Default Constructor
 ContinuedFraction::ContinuedFraction()
 {
-    cout << "Entering default value of 1/1";
-    numerator = 1;
+    numerator = 0;
     denominator = 1;
 }
 
 //Constructor with values
 ContinuedFraction::ContinuedFraction(int num, int denom)
 {
+    if(denom == 0)
+    {
+        throw invalid_argument("Denominator can't be 0");
+    }
     this->numerator = num;
     this->denominator = denom;
 }
@@ -46,36 +49,32 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 
 void ContinuedFraction::simplify()
 {
+    int g = gcd(this->numerator, this->denominator);
+    this->numerator /= g;
+    this->denominator /= g;
+}
 
-    int temp;   //Temporary number that will hold the value of the smallest one of the two in order to subtract
-    if(numerator>denominator)
+int ContinuedFraction::gcd(int a, int b) {
+    // int min;   //Temporary number that will hold the value of the smallest one of the two in order to subtract
+    if(b == 0)
     {
-        temp = denominator; 
+        return a;
     }
-    else if (denominator>numerator)
+    if(a == 0)
     {
-        temp = numerator;
+        return b;
     }
+    int min = a<b ? a : b;
+    
+  
     // The previous two if statements are to determine whether the denominator or numerator is smaller, the integer temp will take on the
     // value of the smallest one
 
-    else // If neither of them is greater than the other, it means they are equal meaning the fraction is equal to 1.
+    while((a%min != 0) || (b%min != 0)) //Calculate the GCD with the temporary number
     {
-        temp = 0;
-        numerator = 1;
-        denominator = 1;
-    }
-    
-    if(!(temp == 0))
-    {
-        while(!((numerator%temp == 0) && (denominator%temp ==0)))
-        {
-            temp--;
+        min--;
         }
-        numerator /= temp;
-        denominator /= temp;
-    }
-    
+    return min;
 }
 
 // In the compute method, I must compute the continued fraction to enter
@@ -112,7 +111,7 @@ void ContinuedFraction::fromFraction(int num, int denom)
 
     numerator = num;
     denominator = denom;
-
+    terms.clear();
     simplify();   //this should reduce the fraction to its simplest form when put into the class variables
 
     compute(); //this should compute the class variables in order to convert it into a class

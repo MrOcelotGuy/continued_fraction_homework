@@ -11,14 +11,17 @@ private:
     int denominator;
     std::vector<int> terms;
 
-    
+    void simplify();
     void compute();
 
 public:
+    //GCD
+    static int gcd(int a, int b);
+
     // Constructors
     ContinuedFraction();
     ContinuedFraction(int num, int denom);
-void simplify();
+
     // Copy constructor and assignment operator
     ContinuedFraction(const ContinuedFraction& other);
     ContinuedFraction& operator=(const ContinuedFraction& other);
