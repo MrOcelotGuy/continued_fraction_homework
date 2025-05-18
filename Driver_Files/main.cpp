@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ContinuedFraction.h"
 
+//Did not change the driver file at the end to ensure it is like the original, but I did do temporary tests on this file.
 int main() {
     try {
         // Test 1: Convert a rational number to continued fraction
