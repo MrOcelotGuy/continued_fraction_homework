@@ -48,7 +48,7 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 //and denominator in order to reduce the fraction to its minimal form
 
 void ContinuedFraction::simplify()
-{
+{ 
     int g = gcd(this->numerator, this->denominator);
     this->numerator /= g;
     this->denominator /= g;
@@ -73,7 +73,7 @@ int ContinuedFraction::gcd(int a, int b) {
     while((a%min != 0) || (b%min != 0)) //Calculate the GCD with the temporary number
     {
         min--;
-        }
+    }
     return min;
 }
 
@@ -82,6 +82,36 @@ int ContinuedFraction::gcd(int a, int b) {
 
 void ContinuedFraction::compute()
 {
+    int a =numerator;
+    int b = denominator;
+    int q;
+    int r;
+
+    if(a%b == 0)
+    {
+        terms.push_back(a);
+        
+    }
+    else
+    {
+        do
+        {
+            /* code */
+            q = a/b;
+            r = a%b;
+            terms.push_back(q);
+
+            a = b;
+            b = r;
+
+        } while (a%b != 0);
+        terms.push_back(a);
+    }
+    
+    for (int  i=0;i<terms.size(); i++) {
+        cout << terms.at(i) << " ";
+    }
+    
     
 }
 
@@ -153,12 +183,12 @@ vector<int> ContinuedFraction::getTerms() const
 //Operator overload implementations
 ContinuedFraction ContinuedFraction::operator+(const ContinuedFraction& other) const
 {
-    return ContinuedFraction(1, 1);
+    return ContinuedFraction( ( (this->numerator * other.denominator) + (other.numerator * this->denominator)), (this->denominator*other.denominator));
 }
 
 ContinuedFraction ContinuedFraction::operator-(const ContinuedFraction& other) const
 {
-    return ContinuedFraction(1, 1);
+    return ContinuedFraction( ( (this->numerator * other.denominator) - (other.numerator * this->denominator)), (this->denominator*other.denominator));
 }
 
 ContinuedFraction ContinuedFraction::operator*(const ContinuedFraction& other) const
@@ -169,6 +199,10 @@ ContinuedFraction ContinuedFraction::operator*(const ContinuedFraction& other) c
 }
 ContinuedFraction ContinuedFraction::operator/(const ContinuedFraction& other) const
 {
+    if(other.numerator == 0)
+    {
+        throw invalid_argument("Don't divide by 0");
+    }
     int newNum = this->numerator*other.denominator;
     int newDenom = this->denominator*other.numerator;
     return ContinuedFraction(newNum, newDenom);
