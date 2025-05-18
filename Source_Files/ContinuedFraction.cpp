@@ -83,14 +83,16 @@ int ContinuedFraction::gcd(int a, int b) {
 
 void ContinuedFraction::compute()
 {
-    int a =numerator;
+    int a = numerator;
     int b = denominator;
     int q;
     int r;
 
+    int sign = ((a > 0 && b < 0 ) || (a < 0 && b > 0)) ? -1 : 1;
+
     if(a%b == 0)
     {
-        terms.push_back(a);
+        terms.push_back(sign*abs(a));
         
     }
     else
@@ -107,8 +109,7 @@ void ContinuedFraction::compute()
 
         } while (a%b != 0);
         terms.push_back(a);
-    }
-    
+    }  
 }
 
 
@@ -170,13 +171,12 @@ pair<int, int> ContinuedFraction::toFraction() const
     }
     pair<int, int> fraction = {1, terms.back()};
 
-    int temporary;
-
-    for(int i = terms.size()-1; i > 0; i--)
+    for(int i = terms.size()-2; i >= 0; i--)
     { 
         swap(fraction.first, fraction.second);
         fraction.second = (fraction.second + (terms.at(i)*fraction.first));
     }
+    swap(fraction.first, fraction.second);
     
     return fraction;
 }

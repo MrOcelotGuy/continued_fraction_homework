@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <utility>  // For std::pair
-
+ 
 class ContinuedFraction {
 private:
     int numerator;
