@@ -26,11 +26,6 @@ int main() {
 
         ContinuedFraction quot = cf1 / cf2;
         std::cout << "Quotient: " << quot << std::endl;
-
-        
-
-        
-
     }
     catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;

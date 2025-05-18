@@ -19,8 +19,9 @@ ContinuedFraction::ContinuedFraction(int num, int denom)
     {
         throw invalid_argument("Denominator can't be 0");
     }
-    this->numerator = num;
-    this->denominator = denom;
+    // this->numerator = num;
+    // this->denominator = denom;
+    fromFraction(num, denom);
 }
 
 //Copy constructor
@@ -108,11 +109,6 @@ void ContinuedFraction::compute()
         terms.push_back(a);
     }
     
-    for (int  i=0;i<terms.size(); i++) {
-        cout << terms.at(i) << " ";
-    }
-    
-    
 }
 
 
@@ -168,8 +164,21 @@ void ContinuedFraction::fromFraction(int num, int denom)
 //    Return : Finally, the method returns the fraction as a std::pair<int, int>.This pair contains the simplified numerator and denominator.
 pair<int, int> ContinuedFraction::toFraction() const
 {
+    if(terms.empty())
+    {
+        return {0,1};
+    }
+    pair<int, int> fraction = {1, terms.back()};
 
-    return {1, 1};
+    int temporary;
+
+    for(int i = terms.size()-1; i > 0; i--)
+    { 
+        swap(fraction.first, fraction.second);
+        fraction.second = (fraction.second + (terms.at(i)*fraction.first));
+    }
+    
+    return fraction;
 }
 
 
@@ -212,7 +221,12 @@ ContinuedFraction ContinuedFraction::operator/(const ContinuedFraction& other) c
 // Stream I/O overloads
 std::ostream& operator<<(std::ostream& os, const ContinuedFraction& cf)
 {
-    os << cf.numerator << "/" << cf.denominator;
+    cout << "[";
+    for(int i = 0; i < cf.getTerms().size()-1; i++)
+    {
+        cout << cf.getTerms().at(i) << ", ";
+    }
+    cout << cf.getTerms().back() << "]";
     return os;
 }
 
