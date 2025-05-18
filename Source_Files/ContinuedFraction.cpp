@@ -50,7 +50,7 @@ ContinuedFraction& ContinuedFraction::operator=(const ContinuedFraction& other)
 
 void ContinuedFraction::simplify()
 { 
-    int g = gcd(this->numerator, this->denominator);
+    int g = gcd(abs(this->numerator), abs(this->denominator));
     this->numerator /= g;
     this->denominator /= g;
 }
@@ -83,33 +83,47 @@ int ContinuedFraction::gcd(int a, int b) {
 
 void ContinuedFraction::compute()
 {
-    int a = numerator;
-    int b = denominator;
-    int q;
-    int r;
 
-    int sign = ((a > 0 && b < 0 ) || (a < 0 && b > 0)) ? -1 : 1;
+    bool isNegative = (numerator < 0) != (denominator < 0); //checks if the fraction is negative
+    int a = abs(numerator);   //a is the initial numerator
+    int b = abs(denominator); //b is the initial denominator
+    
+    //the two above have to be with absolute value so that it doesn't break with negatives
 
     if(a%b == 0)
     {
-        terms.push_back(sign*abs(a));
-        
+        int sign = isNegative ? -1 : 1;
+        terms.push_back(sign*(a/b));     //for continued fractions that only have 1 term, negating if it needs to be negated
     }
     else
     {
-        do
+        int q; //declaring the quotient
+        int r; //declaring the remainder
+
+        while(b != 0) //this iteratively loops until the denominator, which is equivalent to the remainder, is 0
         {
             /* code */
-            q = a/b;
-            r = a%b;
-            terms.push_back(q);
+            q = a/b;    //q is short for quotient, calculates the integer quotient of the numerator a and denominator b
+            r = a%b;    //r is short for remainder, calculates the remainder of numerator a and denominator b
+            terms.push_back(q);  //The algorithm provided of taking the quotient for the list
 
-            a = b;
-            b = r;
+            a = b;  // the numerator becomes what was previously the denominator
+            b = r;  // the denominator becomes what was previously the remainder
+        }
+        
 
-        } while (a%b != 0);
-        terms.push_back(a);
-    }  
+        //Non-standard way of getting negative CF by simply negating each list member.
+        //Usually only the first term can be negative, however the original algorithm doesn't work for
+        //negatives and negating each member still is equivalent.
+
+        if(isNegative)
+        {
+            for(int i = 0; i < terms.size(); i++)  
+            {
+                terms[i] = -terms[i];
+            }
+        }
+    }
 }
 
 

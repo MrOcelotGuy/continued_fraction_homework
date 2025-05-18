@@ -28,7 +28,12 @@ int main() {
         std::cout << "Quotient: " << quot << std::endl;
 
         ContinuedFraction cf3(-4, 2);
-        std::cout << cf3;
+        std::cout << cf3 << std::endl;
+
+        ContinuedFraction cf4(-5, 10);
+        std::cout << cf4 << std::endl;
+
+
     }
     catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
